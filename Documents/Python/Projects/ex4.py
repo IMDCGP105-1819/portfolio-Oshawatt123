@@ -11,10 +11,11 @@ pound_to_kg = 0.453592
 
 print(f"Ley's talk about {my_name}.")
 
-print("The hooman is", my_height * inch_to_cm, " cm tall")
-print("The hooman is ", weight * pound_to_kg, "kilograms! :0")
+print("The hooman is", my_height * inch_to_cm, " cm tall") #didn't use f so I could do the calculation
+print("The hooman is ", weight * pound_to_kg, "kilograms! :0") #  without hard-coding the values
 print(f"Overweight status of the hooman: {is_very_heavy}.")
 print(f"Teh Specimin got {my_eyes} eyes and {my_hair} hair.")
 
 total = my_age + my_height + weight
 print(f"If I add {my_age}, {my_height}, and {weight} then I get {total}.")
+# this f thing is pretty cool
