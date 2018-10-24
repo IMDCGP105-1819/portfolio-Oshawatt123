@@ -1,7 +1,10 @@
 fizz = 0
 buzz = 0
 
-for x in range(100):
+numLow = input("Enter the start number")
+numHigh = input("Enter the end number")
+
+for x in range(numLow, numHigh + 1):
 	fizz = 0 #reset fizzbuzz variables
 	buzz = 0
 	if(x+1)%3 == 0:
