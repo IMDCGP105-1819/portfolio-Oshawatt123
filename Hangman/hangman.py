@@ -103,7 +103,20 @@ def get_available_letters(letters_guessed):
 	  yet been guessed.
 	'''
 	# FILL IN YOUR CODE HERE AND DELETE "pass"
-	pass
+	#string.ascii_lowercase
+	
+	alph_list = list(string.ascii_lowercase)
+	print(alph_list)
+	x = 0
+	while x < len(alph_list):
+		if alph_list[x] in letters_guessed:
+			print("Hooray")
+			alph_list.remove(alph_list[x])
+			x -= 1
+		x += 1
+	return alph_list
+	#alph_list can easily be turned into a string and returned but I personally find the printed
+	#list much easier to read, so I will leave it like this in my version of hangman
 
 
 
@@ -143,4 +156,5 @@ def hangman(secret_word):
 	
 madness = 'apple'
 moremadd = ['y', 'e', 's', 'h', 'z']
-print(get_guessed_word(madness, moremadd))
+#print(get_guessed_word(madness, moremadd))
+print(get_available_letters(moremadd))
