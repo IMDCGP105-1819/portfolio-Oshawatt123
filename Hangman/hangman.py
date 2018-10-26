@@ -146,15 +146,36 @@ def hangman(secret_word):
 	Follows the other limitations detailed in the problem write-up.
 	'''
 	# FILL IN YOUR CODE HERE AND DELETE "pass"
-	pass
-
+	guesses = 6
+	word_length = len(secret_word)
+	print(f"The secret word has {word_length} letters!!")
+	print("Can you guess them all before you run out of guesses :0 WHO KNOWS!?!?")
+	while guesses > 0 :#and guessed_word != actual word
+		#do hangman things
+		guesses -= 1
+	
+def Start():
 	secret_word = choose_word(wordlist)
+	cutscene = input("Do you wish to participate in the entry 'cutscene'? (Y/N) : ")
+	if cutscene == "N" or cutscene == "n":
+		print("Okay then")
+	else:
+		print("Welcome to hangman! Today you face-off against our most formidable opponent!")
+		input("[ENTER]")
+		print("THE MIGHTY COMPUTER")
+		print("*the crowd goes wiiild aaahhhhh* 'OMG I LOVE YOUUUU' *more screaming and wooting*")
+		input("[ENTER]")
+		print("And our newest challenger!!!!!")
+		print("Wait... what was their name again?")
+		name = input("What is your name? : ")
+		print(f"Oh, yes! I remembered that! {name}!")
+		print("*one guy throws his plastic beer bottle at you from the stands*")
+		input("[ENTER]")
+		print("*crickets*")
+		input("[ENTER]")
+		print("Okay then... that was.. well.... the least dramatic entrance we've ever had!")
+		print("Onto the game!!!")
 	hangman(secret_word)
-
 	
-	############## Cody Things Down Here #############
-	
-madness = 'apple'
-moremadd = ['y', 'e', 's', 'h', 'z']
-#print(get_guessed_word(madness, moremadd))
-print(get_available_letters(moremadd))
+	############## "Start()" Things Down Here #############
+Start()
