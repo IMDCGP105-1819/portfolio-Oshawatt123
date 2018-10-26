@@ -75,9 +75,26 @@ def get_guessed_word(secret_word, letters_guessed):
 	  which letters in secret_word have been guessed so far.
 	'''
 	# FILL IN YOUR CODE HERE AND DELETE "pass"
-	pass
-
-
+	correct_letters = list(secret_word)
+	x = 0
+	while x < len(correct_letters):
+		if correct_letters[x] in letters_guessed:
+			print("Hooray")
+		else:
+			correct_letters.remove(correct_letters[x])
+			x -= 1
+		x += 1
+	print(correct_letters)
+	secret_word_list = list(secret_word)
+	stringthing = ""
+	x = 0
+	while x < len(secret_word_list):
+		if secret_word_list[x] in correct_letters:
+			stringthing += secret_word_list[x] + " "
+		else:
+			stringthing += "_ "
+		x += 1
+	return stringthing
 
 def get_available_letters(letters_guessed):
 	'''
@@ -125,5 +142,5 @@ def hangman(secret_word):
 	############## Cody Things Down Here #############
 	
 madness = 'apple'
-moremadd = ['e', 'a', 'p', 'd']
-print(is_word_guessed(madness, moremadd))
+moremadd = ['y', 'e', 's', 'h', 'z']
+print(get_guessed_word(madness, moremadd))
