@@ -63,8 +63,10 @@ def is_word_guessed(secret_word, letters_guessed):
 		x += 1
 	
 	if words_correct == len(secret_word_list):
+		#print("True") - DEBUG
 		return True
 	else:
+		#print("False") - DEBUG
 		return False
 	
 def get_guessed_word(secret_word, letters_guessed):
@@ -78,13 +80,11 @@ def get_guessed_word(secret_word, letters_guessed):
 	correct_letters = list(secret_word)
 	x = 0
 	while x < len(correct_letters):
-		if correct_letters[x] in letters_guessed:
-			print("Hooray")
-		else:
+		if correct_letters[x] not in letters_guessed:
 			correct_letters.remove(correct_letters[x])
 			x -= 1
 		x += 1
-	print(correct_letters)
+	#print(correct_letters) - DEBUG
 	secret_word_list = list(secret_word)
 	stringthing = ""
 	x = 0
@@ -106,19 +106,16 @@ def get_available_letters(letters_guessed):
 	#string.ascii_lowercase
 	
 	alph_list = list(string.ascii_lowercase)
-	print(alph_list)
 	x = 0
 	while x < len(alph_list):
 		if alph_list[x] in letters_guessed:
-			print("Hooray")
+			#print("Hooray") - DEBUG
 			alph_list.remove(alph_list[x])
 			x -= 1
 		x += 1
 	return alph_list
 	#alph_list can easily be turned into a string and returned but I personally find the printed
 	#list much easier to read, so I will leave it like this in my version of hangman
-
-
 
 def hangman(secret_word):
 	'''
@@ -145,18 +142,57 @@ def hangman(secret_word):
 
 	Follows the other limitations detailed in the problem write-up.
 	'''
-	# FILL IN YOUR CODE HERE AND DELETE "pass"
+	
 	guesses = 6
+	warnings = 0
 	word_length = len(secret_word)
+	letters_guessed = []
+	secret_word_list = list(secret_word)
 	print(f"The secret word has {word_length} letters!!")
 	print("Can you guess them all before you run out of guesses :0 WHO KNOWS!?!?")
-	while guesses > 0 :#and guessed_word != actual word
-		#do hangman things
-		guesses -= 1
+	## Loop through as long as they have guesses and don't know the word
+	while guesses > 0 and is_word_guessed(secret_word, letters_guessed) == False:
+		# Display number of guesses and available letters
+		print(f"You have {guesses} guesses left")
+		print("Available letters: " + str(get_available_letters(letters_guessed)))
+		# Get guessed letter and update list
+		guess = input("Please guess a letter: ")
+		if guess.isalpha():
+			#################################### NORMAL GAME #####################################
+			letters_guessed.append(guess)
+			# Some dialog for the player
+			if guess in secret_word_list:
+				print("Congrats! That's in the word!")
+			else:
+				print("Better luck next time!")
+			#full word is guessed?
+			if(is_word_guessed(secret_word, letters_guessed)):
+				print("WOW! You're the most successful contestant we've ever had!!!")
+				print("gg wp")
+				return
+			else:
+				print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
+			if(guess == 'a' or guess == 'e' or guess == 'i' or guess == ' o' or guess == 'u'):
+				guesses -= 2
+			else:
+				guesses -= 1
+		else:
+			################################## INVALID SYNTAX ###################################
+			print("Not valid input. Please use only letters")
+			warnings += 1
+			if warnings%3 == 0:
+				guesses -= 1
+				print("You have lost a guess due to occurring 3 warnings")
+			print(f"WARNINGS: {warnings}")
+			print(f"Guesses left: {guesses}")
+		print("#############################################")
+		print("############# THE NEXT ROUND ################")
+		print("#############################################")
 	
 def Start():
 	secret_word = choose_word(wordlist)
-	cutscene = input("Do you wish to participate in the entry 'cutscene'? (Y/N) : ")
+	#Extra cut-scene stuff to ward off tiredness
+	cutscene = input("Do you wish to participate in the entry 'cut-scene'? (Y/N) : ")
 	if cutscene == "N" or cutscene == "n":
 		print("Okay then")
 	else:
@@ -176,6 +212,7 @@ def Start():
 		print("Okay then... that was.. well.... the least dramatic entrance we've ever had!")
 		print("Onto the game!!!")
 	hangman(secret_word)
+	print(secret_word)
 	
 	############## "Start()" Things Down Here #############
 Start()
