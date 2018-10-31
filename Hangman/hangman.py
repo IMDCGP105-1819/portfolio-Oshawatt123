@@ -8,6 +8,7 @@ import random
 import string
 
 WORDLIST_FILENAME = "words.txt"
+warnings = 0
 
 def load_words():
 	"""
@@ -160,36 +161,43 @@ def hangman(secret_word):
 		guess = input("Please guess a letter: ")
 		guess = guess.lower()
 		if guess.isalpha():
-			#################################### NORMAL GAME #####################################
-			letters_guessed.append(guess)
-			# Some dialog for the player
-			if guess in secret_word_list:
-				print("Congrats! That's in the word!")
+			if guess in letters_guessed:
+				print("You have already guessed that. You have been given a warning")
+				warn()
 			else:
-				print("Better luck next time!")
-				if(guess in vowels):
-					guesses -= 2
+				#################################### NORMAL GAME #####################################
+				letters_guessed.append(guess)
+				# Some dialog for the player
+				if guess in secret_word_list:
+					print("Congrats! That's in the word!")
 				else:
-					guesses -= 1
-			#full word is guessed?
-			if(is_word_guessed(secret_word, letters_guessed)):
-				print("WOW! You're the most successful contestant we've ever had!!!")
-				print("gg wp")
-				return
-			print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
+					print("Better luck next time!")
+					if(guess in vowels):
+						guesses -= 2
+					else:
+						guesses -= 1
+				#full word is guessed?
+				if(is_word_guessed(secret_word, letters_guessed)):
+					print("WOW! You're the most successful contestant we've ever had!!!")
+					print("gg wp")
+					return
+				print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
 		else:
 			################################## INVALID SYNTAX ###################################
 			print("Not valid input. Please use only letters")
-			warnings += 1
-			if warnings%3 == 0:
-				guesses -= 1
-				print("You have lost a guess due to occurring 3 warnings")
-			print(f"WARNINGS: {warnings}")
-			print(f"Guesses left: {guesses}")
+			warn()
 		print("#############################################")
 		print("############# THE NEXT ROUND ################")
 		print("#############################################")
-	
+
+def warn():
+	warnings += 1
+	if warnings%3 == 0:
+		guesses -= 1
+		print("You have lost a guess due to occurring 3 warnings")
+	print(f"WARNINGS: {warnings}")
+	print(f"Guesses left: {guesses}")
+
 def Start():
 	secret_word = choose_word(wordlist)
 	#Extra cut-scene stuff to ward off tiredness
