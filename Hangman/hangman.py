@@ -8,7 +8,6 @@ import random
 import string
 
 WORDLIST_FILENAME = "words.txt"
-warnings = 0
 
 def load_words():
 	"""
@@ -163,7 +162,7 @@ def hangman(secret_word):
 		if guess.isalpha():
 			if guess in letters_guessed:
 				print("You have already guessed that. You have been given a warning")
-				warn()
+				warn(warnings, guesses)
 			else:
 				#################################### NORMAL GAME #####################################
 				letters_guessed.append(guess)
@@ -180,26 +179,26 @@ def hangman(secret_word):
 				if(is_word_guessed(secret_word, letters_guessed)):
 					print("WOW! You're the most successful contestant we've ever had!!!")
 					print("gg wp")
-					return
+					finish(guesses, secret_word_list)
 				print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
 		else:
 			################################## INVALID SYNTAX ###################################
 			print("Not valid input. Please use only letters")
-			warn()
+			warn(warnings, guesses)
 		print("#############################################")
 		print("############# THE NEXT ROUND ################")
 		print("#############################################")
-
-def warn():
+	finish(guesses, secret_word_list)
+def warn(warnings, guesses):
 	warnings += 1
 	if warnings%3 == 0:
 		guesses -= 1
 		print("You have lost a guess due to occurring 3 warnings")
 	print(f"WARNINGS: {warnings}")
-	print(f"Guesses left: {guesses}")
 
 def Start():
 	secret_word = choose_word(wordlist)
+	print(secret_word)
 	#Extra cut-scene stuff to ward off tiredness
 	cutscene = input("Do you wish to participate in the entry 'cut-scene'? (Y/N) : ")
 	if cutscene == "N" or cutscene == "n":
@@ -223,5 +222,14 @@ def Start():
 	hangman(secret_word)
 	print(secret_word)
 	
+def finish(guesses, secret_word_list):
+	letter_list = []
+	x = 0
+	while x < len(secret_word_list):
+		if secret_word_list[x] not in letter_list:
+			letter_list.append(secret_word_list[x])
+		x += 1
+	score = guesses * len(letter_list)
+	print(score)
 	############## "Start()" Things Down Here #############
 Start()
