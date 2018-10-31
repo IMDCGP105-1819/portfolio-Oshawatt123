@@ -148,6 +148,7 @@ def hangman(secret_word):
 	word_length = len(secret_word)
 	letters_guessed = []
 	secret_word_list = list(secret_word)
+	vowels = ["a", "e", "i", "o", "u"]
 	print(f"The secret word has {word_length} letters!!")
 	print("Can you guess them all before you run out of guesses :0 WHO KNOWS!?!?")
 	## Loop through as long as they have guesses and don't know the word
@@ -165,17 +166,16 @@ def hangman(secret_word):
 				print("Congrats! That's in the word!")
 			else:
 				print("Better luck next time!")
+				if(guess in vowels):
+					guesses -= 2
+				else:
+					guesses -= 1
 			#full word is guessed?
 			if(is_word_guessed(secret_word, letters_guessed)):
 				print("WOW! You're the most successful contestant we've ever had!!!")
 				print("gg wp")
 				return
-			else:
-				print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
-			if(guess == 'a' or guess == 'e' or guess == 'i' or guess == ' o' or guess == 'u'):
-				guesses -= 2
-			else:
-				guesses -= 1
+			print("The word so far: " + str(get_guessed_word(secret_word, letters_guessed)))
 		else:
 			################################## INVALID SYNTAX ###################################
 			print("Not valid input. Please use only letters")
