@@ -158,6 +158,7 @@ def hangman(secret_word):
 		print("Available letters: " + str(get_available_letters(letters_guessed)))
 		# Get guessed letter and update list
 		guess = input("Please guess a letter: ")
+		guess = guess.lower()
 		if guess.isalpha():
 			#################################### NORMAL GAME #####################################
 			letters_guessed.append(guess)
