@@ -11,6 +11,26 @@ while x < len(lyric_list):
 		word_freq[lyric_list[x]] = 1
 	x += 1
 
+def bubsort(list):
+	length = len(list)
+	x = 0
+	temp = 0
+	sort = 0
+	sorted = False
+	while x < length and not sorted:
+		if list[x] > list[x+1]:
+			temp = list[x]
+			list[x] = list[x+1]
+			list[x+1] = temp
+		else:
+			sort += 1
+		x += 1
+		if x == length-1:
+			x = 0
+		if sort == length:
+			sorted = True
+	return list
+	
 def mostcommon(word_freq):
 	mostcommonword = []
 	mostcommonwordfreq = 0
@@ -28,6 +48,8 @@ def atleast(word_freq, num):
 	for x in word_freq:
 		if word_freq.get(x) >= num:
 			wordlist.append(x)
+	wordlist = bubsort(wordlist)
+	print(wordlist)
 	tpl = (wordlist, num)
 	return tpl
 
