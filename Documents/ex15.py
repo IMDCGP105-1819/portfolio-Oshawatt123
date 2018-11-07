@@ -1,4 +1,4 @@
-lyric = "oh dan oh why do you play TF2 you absolute baboon"
+lyric = "oh dan oh why do you play TF2 you absolute baboon man man man"
 
 lyric_list = lyric.split(" ") # easy python way to split the song into each word
 word_freq = {}
@@ -16,14 +16,14 @@ while x < len(lyric_list):
 # bubble sort to sort the list into the right order
 # bubble was used as it is easy to code and does the job fine
 # the list will never be big enough to run into any major time issues as songs aren't THAT long
-def bubsort(list):
+def bubsort(list, word_freq):
 	length = len(list)
 	x = 0
 	temp = 0
 	sort = 0
 	sorted = False
 	while x < length and not sorted:
-		if list[x] > list[x+1]:
+		if word_freq.get(list[x]) > word_freq.get(list[x+1]):
 			temp = list[x]
 			list[x] = list[x+1]
 			list[x+1] = temp
@@ -57,8 +57,8 @@ def atleast(word_freq, num):
 		if word_freq.get(x) >= num:
 			wordlist.append(x)
 	# sort the list on frequency for nice presentation
-	wordlist = bubsort(wordlist)
-	print(wordlist)
+	wordlist = bubsort(wordlist, word_freq)
+	#print(wordlist) - DEBUG
 	tpl = (wordlist, num)
 	return tpl
 

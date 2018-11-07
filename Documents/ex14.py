@@ -4,4 +4,10 @@ def fib(x):
 	else:
 		return fib(x-1) + fib(x-2)
 
-print(fib(int(input("What Number of the fibonacci do you want?"))-1))
+print(fib(int(input("What Number of the fibonacci do you want? eg (5)th number: "))-1))
+
+
+
+
+
+
